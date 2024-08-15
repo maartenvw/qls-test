@@ -51,6 +51,10 @@ watch(mobile, () => {
             <template v-slot:prepend>
                 <VAppBarNavIcon variant="text" @click.stop="drawer = !drawer"></VAppBarNavIcon>
             </template>
+            <v-spacer></v-spacer>
+            <v-btn @click="logout">
+                Loguit
+            </v-btn>
         </VAppBar>
         <VMain>
             <VContainer>
