@@ -6,6 +6,7 @@ const props = defineProps(['shipmentProducts'])
 const product = ref()
 const productCombination = ref()
 const formError = ref('')
+const formLoading = ref(false)
 
 watch(product, (oldVal, newVal) => {
     formError.value = ''
@@ -17,7 +18,23 @@ watch(product, (oldVal, newVal) => {
 })
 
 const onSubmit = () => {
-    if(product.value !== undefined) {
+    var submit = false;
+    formLoading.value = true
+    if(product.value == undefined) {
+        formError.value = 'Geen verzend product geselecteerd!'
+        formLoading.value = false
+        return
+    } else {
+        submit = true
+    }
+    if(productCombination.value == undefined) {
+        formError.value = 'Geen verzend product optie geselecteerd!'
+        formLoading.value = false
+        return
+    } else {
+        submit = true
+    }
+    if(submit) {
         axios.post('/labels/generate-shipment', {
             product: product.value,
             productCombination: productCombination.value
@@ -32,13 +49,17 @@ const onSubmit = () => {
             if(response.data.product_id && response.data.weight) {
                 formError.value = response.data.product_id.isValidProductId + ', ' + response.data.weight.isPossibleWithProduct
             }
+            const link = document.createElement('a');
+            link.href = response.data.file;
+            link.setAttribute('download', response.data.fileName); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+            formLoading.value = false
         }).catch((error) => {
             console.log(error)
         })
-    } else {
-        formError.value = 'Geen verzend product geselecteerd!'
-        return
     }
+
 }
 
 </script>
@@ -89,7 +110,7 @@ const onSubmit = () => {
         </VCardText>
         <VCardText style="justify-content: space-between; display: flex;">
             <span>&nbsp;</span>
-            <VBtn color="secondary" @click="onSubmit">Genereer</VBtn>
+            <VBtn color="secondary" @click="onSubmit" :loading="formLoading">Genereer</VBtn>
         </VCardText>
     </VCard>
 </template>

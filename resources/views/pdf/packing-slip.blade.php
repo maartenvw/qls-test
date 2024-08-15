@@ -11,13 +11,15 @@
         {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
         {{-- <link href="{{ 'file://'.resource_path('css/tailwind.css') }}" rel="stylesheet" /> --}}
         {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css" rel="stylesheet" />
         <style>
             :host, html {
                 line-height: 1.5;
                 -webkit-text-size-adjust: 100%;
                 -moz-tab-size: 4;
                 tab-size: 4;
-                font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
                 font-feature-settings: normal;
                 font-variation-settings: normal;
                 -webkit-tap-highlight-color: transparent;
@@ -111,9 +113,9 @@
     <body class="p-4">
         <div>
             <div>
-                <h2 class="text-3xl font-bold leading-7">Pakbon</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
+                <h2 class="is-size-2 has-text-weight-bold">Pakbon</h2>
+                <div class="row">
+                    <div class="col-xs-6">
                         <ul>
                             <li>{{ $order['billing_address']['name'] }}</li>
                             <li>{{ $order['billing_address']['street'] }} {{ $order['billing_address']['housenumber'] }}</li>
@@ -123,7 +125,7 @@
                             <li>{{ $order['billing_address']['phone'] }}</li>
                         </ul>
                     </div>
-                    <div class="flex justify-end">
+                    <div class="col-xs-6">
                         <ul>
                             <li class="font-bold">QLS</li>
                             <li>Kerkeplaats 11</li>
@@ -133,7 +135,6 @@
                             <li>078-6475590</li>
                         </ul>
                     </div>
-                    <div class="float"></div>
                 </div>
                 <ul class="mt-4">
                     <li>

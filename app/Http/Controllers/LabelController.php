@@ -117,8 +117,6 @@ class LabelController extends Controller
         $imagePath = '/shipment-label-'. Str::replace('#', '', $order['number']) .'.jpg';
         $image->save(storage_path('/app/public/'.$imagePath));
 
-        // return view('pdf.packing-slip', ['order' => $order, 'image' =>  asset('/storage/'.$imagePath)]);
-
         // Hier wordt via het snappy pakket een pdf gegenereerd op basis van de pdf/packing-slip.blade.php
         $pdf = App::make('snappy.pdf.wrapper');
         $pdf->loadView('pdf.packing-slip', [
@@ -126,8 +124,14 @@ class LabelController extends Controller
             'image' =>  asset('/storage/'.$imagePath)
         ]);
 
-        // Hier wordt de PDF gedownload
-        return $pdf->inline('packing-slip-'. $order['number'] .'.pdf');
+        // Hier wordt de PDF opgeslagen om in VUE opgehaald te kunnen worden en gedownload
+        $pdfFileName = 'packing-slip-'. Str::replace('#', '', $order['number']) .'.pdf';
+        Storage::disk('public')->put($pdfFileName, $pdf->download($pdfFileName));
+
+        return [
+            'file' => asset('/storage/'.$pdfFileName),
+            'fileName' => $pdfFileName
+        ];
     }
 
 }

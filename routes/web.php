@@ -21,5 +21,5 @@ Route::middleware([
 ])->controller(LabelController::class)->group(function () {
     Route::get('dashboard', 'index')->name('dashboard');
     Route::get('labels/shipment-products', 'getShipmentProducts')->name('shipmentProducts');
-    Route::get('labels/generate-shipment', 'generate')->name('generate-shipment');
+    Route::post('labels/generate-shipment', 'generate')->name('generate-shipment');
 });
