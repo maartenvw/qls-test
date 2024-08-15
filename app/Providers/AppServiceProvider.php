@@ -19,6 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        putenv('PATH=' . getenv('PATH') . ':/opt/homebrew/bin');
     }
 }

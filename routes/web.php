@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LabelController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,8 +18,8 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+])->controller(LabelController::class)->group(function () {
+    Route::get('dashboard', 'index')->name('dashboard');
+    Route::get('labels/shipment-products', 'getShipmentProducts')->name('shipmentProducts');
+    Route::get('labels/generate-shipment', 'generate')->name('generate-shipment');
 });
