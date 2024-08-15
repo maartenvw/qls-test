@@ -30,61 +30,74 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Log in" />
-
-    <AuthenticationCard>
-        <template #logo>
-            <AuthenticationCardLogo />
-        </template>
-
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-                <TextInput
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-                <InputError class="mt-2" :message="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-                <TextInput
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    required
-                    autocomplete="current-password"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </AuthenticationCard>
+    <v-app>
+        <v-main>
+            <v-container fluid class="h-100">
+               <v-row align="center" justify="center" class="h-100">
+                    <v-responsive class="flex-1-1 px-4" max-width="475px">
+                        <div class="text-h3 text-center mb-8 font-weight-bold text-primary">QLS</div>
+                        <div class="text-h5 text-center mb-8 font-weight-medium">Log into your account</div>
+                        <v-card
+                            density="default"
+                            elevation="3"
+                            rounded="lg"
+                            variant="elevated"
+                            class="pa-10 mb-8"
+                        >
+                            <v-card-text>
+                                <v-form @submit.prevent="submit">
+                                    <v-label class="text-subtitle-2">
+                                        E-Mail
+                                    </v-label>
+                                    <v-text-field
+                                        id="email"
+                                        v-model="form.email"
+                                        type="email"
+                                        class="mt-1 block w-full"
+                                        variant="outlined"
+                                        density="compact"
+                                        rounded="lg"
+                                        required
+                                        autofocus
+                                        autocomplete="username"
+                                        :error-messages="form.errors.email"
+                                    ></v-text-field>
+                                    <v-label class="text-subtitle-2">
+                                        Wachtwoord
+                                    </v-label>
+                                    <v-text-field
+                                        id="password"
+                                        v-model="form.password"
+                                        type="password"
+                                        class="mt-1 block w-full"
+                                        variant="outlined"
+                                        density="compact"
+                                        rounded="lg"
+                                        required
+                                        autocomplete="current-password"
+                                        :error-messages="form.errors.password"
+                                    ></v-text-field>
+                                    <div class="mb-4">
+                                        <v-checkbox
+                                            v-model="form.remember"
+                                            label="Remember me"
+                                        ></v-checkbox>
+                                    </div>
+                                    <v-btn
+                                        color="secondary"
+                                        block
+                                        rounded="lg"
+                                        variant="elevated"
+                                        :loading="form.processing"
+                                        @click="submit"
+                                        class="text-none"
+                                    >Login</v-btn>
+                                </v-form>
+                            </v-card-text>
+                        </v-card>
+                    </v-responsive>
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
